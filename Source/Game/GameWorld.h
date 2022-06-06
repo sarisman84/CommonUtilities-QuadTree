@@ -10,7 +10,7 @@ namespace Tga2D
 
 class GameWorld
 {
-	std::shared_ptr<Tga2D::ModelInstancer> myModelInstancer;
+	
 
 public:
 	GameWorld(); 
@@ -20,7 +20,7 @@ public:
 	void Update(float aTimeDelta); 
 	void Render();
 private:
-	Tga2D::Texture* myTga2dLogoTexture;
+	
 
 	//Tga2D::AnimatedModelInstance model;
 };

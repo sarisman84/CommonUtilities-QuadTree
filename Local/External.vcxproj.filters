@@ -16,6 +16,9 @@
     <Filter Include="StackWalker">
       <UniqueIdentifier>{21FD7E7C-8DB2-F771-16A7-F148825BEE75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TGAFBXImporter">
+      <UniqueIdentifier>{738425AE-5F52-19B4-48E6-89DA3453F518}</UniqueIdentifier>
+    </Filter>
     <Filter Include="WinPixEventRuntime">
       <UniqueIdentifier>{CA3F7E69-B623-3FBF-1F84-39120B872941}</UniqueIdentifier>
     </Filter>
@@ -77,6 +80,12 @@
     </ClInclude>
     <ClInclude Include="..\Source\External\StackWalker\StackWalker.h">
       <Filter>StackWalker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\External\TGAFBXImporter\FBXImporter.h">
+      <Filter>TGAFBXImporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\External\TGAFBXImporter\FBXImporterStructs.h">
+      <Filter>TGAFBXImporter</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\External\WinPixEventRuntime\PIXEvents.h">
       <Filter>WinPixEventRuntime</Filter>

@@ -84,6 +84,9 @@
     <ClInclude Include="..\Source\tga2dcore\tga2d\EngineDefines.h">
       <Filter>tga2d</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\tga2dcore\tga2d\EngineMacros.h">
+      <Filter>tga2d</Filter>
+    </ClInclude>
     <ClInclude Include="..\Source\tga2dcore\tga2d\StepTimer.h">
       <Filter>tga2d</Filter>
     </ClInclude>
@@ -159,6 +162,9 @@
     <ClInclude Include="..\Source\tga2dcore\tga2d\graphics\FullscreenEffect.h">
       <Filter>tga2d\graphics</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\tga2dcore\tga2d\graphics\FullscreenPixelateEffect.h">
+      <Filter>tga2d\graphics</Filter>
+    </ClInclude>
     <ClInclude Include="..\Source\tga2dcore\tga2d\graphics\GraphicsEngine.h">
       <Filter>tga2d\graphics</Filter>
     </ClInclude>
@@ -189,10 +195,10 @@
     <ClInclude Include="..\Source\tga2dcore\tga2d\input\XInput.h">
       <Filter>tga2d\input</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\tga2dcore\tga2d\light\LightManager.h">
+    <ClInclude Include="..\Source\tga2dcore\tga2d\light\Light.h">
       <Filter>tga2d\light</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\tga2dcore\tga2d\light\light.h">
+    <ClInclude Include="..\Source\tga2dcore\tga2d\light\LightManager.h">
       <Filter>tga2d\light</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\tga2dcore\tga2d\loaders\tgaloader.h">
@@ -249,6 +255,9 @@
     <ClInclude Include="..\Source\tga2dcore\tga2d\model\ModelInstance.h">
       <Filter>tga2d\model</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\tga2dcore\tga2d\model\ModelInstancer.h">
+      <Filter>tga2d\model</Filter>
+    </ClInclude>
     <ClInclude Include="..\Source\tga2dcore\tga2d\model\ModelStatus.h">
       <Filter>tga2d\model</Filter>
     </ClInclude>
@@ -269,6 +278,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\tga2dcore\tga2d\render\renderer.h">
       <Filter>tga2d\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\tga2dcore\tga2d\shaders\InstancedModelShader.h">
+      <Filter>tga2d\shaders</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\tga2dcore\tga2d\shaders\ModelShader.h">
       <Filter>tga2d\shaders</Filter>
@@ -394,6 +406,9 @@
     <ClCompile Include="..\Source\tga2dcore\tga2d\graphics\FullscreenEffect.cpp">
       <Filter>tga2d\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\tga2dcore\tga2d\graphics\FullscreenPixelateEffect.cpp">
+      <Filter>tga2d\graphics</Filter>
+    </ClCompile>
     <ClCompile Include="..\Source\tga2dcore\tga2d\graphics\GraphicsEngine.cpp">
       <Filter>tga2d\graphics</Filter>
     </ClCompile>
@@ -421,10 +436,10 @@
     <ClCompile Include="..\Source\tga2dcore\tga2d\input\XInput.cpp">
       <Filter>tga2d\input</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\tga2dcore\tga2d\light\LightManager.cpp">
+    <ClCompile Include="..\Source\tga2dcore\tga2d\light\Light.cpp">
       <Filter>tga2d\light</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\tga2dcore\tga2d\light\light.cpp">
+    <ClCompile Include="..\Source\tga2dcore\tga2d\light\LightManager.cpp">
       <Filter>tga2d\light</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\tga2dcore\tga2d\loaders\tgaloader.cpp">
@@ -451,6 +466,9 @@
     <ClCompile Include="..\Source\tga2dcore\tga2d\model\ModelInstance.cpp">
       <Filter>tga2d\model</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\tga2dcore\tga2d\model\ModelInstancer.cpp">
+      <Filter>tga2d\model</Filter>
+    </ClCompile>
     <ClCompile Include="..\Source\tga2dcore\tga2d\noise\PerlinNoise.cpp">
       <Filter>tga2d\noise</Filter>
     </ClCompile>
@@ -465,6 +483,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\tga2dcore\tga2d\render\renderer.cpp">
       <Filter>tga2d\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\tga2dcore\tga2d\shaders\InstancedModelShader.cpp">
+      <Filter>tga2d\shaders</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\tga2dcore\tga2d\shaders\ModelShader.cpp">
       <Filter>tga2d\shaders</Filter>
@@ -513,6 +534,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="..\Source\tga2dcore\tga2d\graphics\AnimatedVertexShaderVS.hlsl">
+      <Filter>tga2d\graphics</Filter>
+    </FxCompile>
     <FxCompile Include="..\Source\tga2dcore\tga2d\graphics\PixelShaderPS.hlsl">
       <Filter>tga2d\graphics</Filter>
     </FxCompile>
@@ -523,6 +547,9 @@
       <Filter>tga2d\graphics</Filter>
     </FxCompile>
     <FxCompile Include="..\Source\tga2dcore\tga2d\graphics\PostprocessGaussianV_PS.hlsl">
+      <Filter>tga2d\graphics</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Source\tga2dcore\tga2d\graphics\PostprocessPixelate_PS.hlsl">
       <Filter>tga2d\graphics</Filter>
     </FxCompile>
     <FxCompile Include="..\Source\tga2dcore\tga2d\graphics\PostprocessTonemapPS.hlsl">
@@ -541,6 +568,12 @@
       <Filter>tga2d\shaders</Filter>
     </FxCompile>
     <FxCompile Include="..\Source\tga2dcore\tga2d\shaders\custom_shape_VS.hlsl">
+      <Filter>tga2d\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Source\tga2dcore\tga2d\shaders\instanced_model_shader_PS.hlsl">
+      <Filter>tga2d\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Source\tga2dcore\tga2d\shaders\instanced_model_shader_VS.hlsl">
       <Filter>tga2d\shaders</Filter>
     </FxCompile>
     <FxCompile Include="..\Source\tga2dcore\tga2d\shaders\instanced_sprite_shader_VS.hlsl">
