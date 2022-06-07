@@ -1,26 +1,26 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\Source\Game\Game.cpp" />
-    <ClCompile Include="..\Source\Game\GameWorld.cpp" />
-    <ClCompile Include="..\Source\Game\stdafx.cpp" />
-    <ClCompile Include="..\Source\Game\QuadTree\QuadNode.cpp">
-      <Filter>QuadTree</Filter>
-    </ClCompile>
+    <Filter Include="QuadTree">
+      <UniqueIdentifier>{00636B54-EC2F-C65F-1549-B4070175FBED}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Game\Game.h" />
     <ClInclude Include="..\Source\Game\GameWorld.h" />
-    <ClInclude Include="..\Source\Game\resource.h" />
-    <ClInclude Include="..\Source\Game\stdafx.h" />
-    <ClInclude Include="..\Source\Game\targetver.h" />
     <ClInclude Include="..\Source\Game\QuadTree\QuadNode.h">
       <Filter>QuadTree</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Game\resource.h" />
+    <ClInclude Include="..\Source\Game\stdafx.h" />
+    <ClInclude Include="..\Source\Game\targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="QuadTree">
-      <UniqueIdentifier>{6fb2b614-975f-46af-a477-a4a9c01f9b1b}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="..\Source\Game\Game.cpp" />
+    <ClCompile Include="..\Source\Game\GameWorld.cpp" />
+    <ClCompile Include="..\Source\Game\QuadTree\QuadNode.cpp">
+      <Filter>QuadTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Game\stdafx.cpp" />
   </ItemGroup>
 </Project>

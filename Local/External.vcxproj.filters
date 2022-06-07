@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Custom">
+      <UniqueIdentifier>{A0E5AEAC-8C87-D982-7542-EDD6618360D3}</UniqueIdentifier>
+    </Filter>
     <Filter Include="DirectXTex">
       <UniqueIdentifier>{A90EE592-95C6-26E0-FECD-FF3BEAA4C1D0}</UniqueIdentifier>
     </Filter>
@@ -69,6 +72,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\External\Custom\DoublyLinkedList.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\External\Custom\Heap.hpp">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\External\Custom\Input.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\External\Custom\List.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\External\Custom\ObjectFactory.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\External\Custom\Queue.hpp">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\External\Custom\Stack.hpp">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\External\Custom\UtilityFunctions.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\External\Custom\Vector.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\External\Custom\Vector2.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\External\Custom\Vector3.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\External\Custom\Vector4.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\External\Custom\VectorOnStack.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
     <ClInclude Include="..\Source\External\DirectXTex\DDSTextureLoader\DDSTextureLoader11.h">
       <Filter>DirectXTex\DDSTextureLoader</Filter>
     </ClInclude>
@@ -657,6 +699,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\External\Custom\Input.cpp">
+      <Filter>Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\External\Custom\ObjectFactory.cpp">
+      <Filter>Custom</Filter>
+    </ClCompile>
     <ClCompile Include="..\Source\External\DirectXTex\DDSTextureLoader\DDSTextureLoader11.cpp">
       <Filter>DirectXTex\DDSTextureLoader</Filter>
     </ClCompile>

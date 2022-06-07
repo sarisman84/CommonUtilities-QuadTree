@@ -2,6 +2,7 @@
 #include <tga2d/engine.h>
 #include "Game.h"
 
+
 #include <tga2d/error/ErrorManager.h>
 
 using namespace std::placeholders;
@@ -31,6 +32,14 @@ LRESULT Game::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	lParam;
 	wParam;
 	hWnd;
+
+	using CommonUtilities::Mouse;
+	using CommonUtilities::Keyboard;
+
+	Mouse::UpdateEvents(hWnd, message, wParam, lParam);
+	Keyboard::Update(message, wParam, lParam);
+
+
 	switch (message)
 	{
 		// this message is read when the window is closed
@@ -50,9 +59,9 @@ bool Game::Init(const std::wstring& aVersion, HWND /*aHWND*/)
 {
 	Tga2D::EngineCreateParameters createParameters;
 
-	createParameters.myInitFunctionToCall = [this] {InitCallBack(); };
-	createParameters.myWinProcCallback = [this](HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {return WinProc(hWnd, message, wParam, lParam); };
-	createParameters.myUpdateFunctionToCall = [this] {UpdateCallBack(); };
+	createParameters.myInitFunctionToCall = [this] { InitCallBack(); };
+	createParameters.myWinProcCallback = [this](HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) { return WinProc(hWnd, message, wParam, lParam); };
+	createParameters.myUpdateFunctionToCall = [this] { UpdateCallBack(); };
 	createParameters.myApplicationName = L"TGA 2D " + BUILD_NAME + L"[" + aVersion + L"] ";
 	//createParameters.myPreferedMultiSamplingQuality = Tga2D::EMultiSamplingQuality::High;
 	createParameters.myActivateDebugSystems = Tga2D::DebugFeature::Fps |
@@ -80,6 +89,10 @@ void Game::InitCallBack()
 
 void Game::UpdateCallBack()
 {
+	using CommonUtilities::Mouse;
+
 	myGameWorld.Update(Tga2D::Engine::GetInstance()->GetDeltaTime());
 	myGameWorld.Render();
+	
+	Mouse::EndFrame();
 }
