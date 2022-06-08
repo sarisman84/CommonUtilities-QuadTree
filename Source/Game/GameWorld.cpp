@@ -37,7 +37,7 @@ void GameWorld::Update(float aTimeDelta)
 
 
 
-	if (Mouse::GetButton(Mouse::Key::LeftMouseButton))
+	if (Mouse::GetButtonDown(Mouse::Key::LeftMouseButton))
 	{
 		GameObject newObj = GameObject();
 		newObj.myPosition = GetLinearCoords(Mouse::GetMousePosition());

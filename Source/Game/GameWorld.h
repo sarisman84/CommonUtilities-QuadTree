@@ -15,6 +15,11 @@ struct GameObject
 {
 	Tga2D::Vector2f myPosition;
 	Tga2D::Vector2f mySize;
+
+	const bool operator==(const GameObject& aLhs)
+	{
+		return myPosition == aLhs.myPosition;
+	}
 };
 
 

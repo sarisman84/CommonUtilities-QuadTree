@@ -2,15 +2,16 @@
 #include <vector>
 #include <array>
 #include <memory>
+#include <functional>
 #include <tga2d/math/Transform.h>
-
+#include <algorithm>
 #include <tga2d/drawers/DebugDrawer.h>
 
 template<typename Object>
 class QuadNode
 {
 public:
-	QuadNode(const Tga2D::Vector2f aPos, const Tga2D::Vector2f aSize);
+	QuadNode(const Tga2D::Vector2f& aPos, const Tga2D::Vector2f& aSize);
 	void Insert(const Object& anObjectToAdd);
 	void Render();
 
@@ -24,14 +25,15 @@ private:
 	std::vector<std::shared_ptr<QuadNode>> myChildNodes;
 	std::vector< Object> myContents;
 
-	void InsertInChildren(const Object& anObjectToAdd);
+	void InsertInChildren(const Object& anObjectToAdd, std::function<void(Object& anObject)> anInsertCallack = nullptr);
+	void MoveContentsToChildren();
 	void SplitNode();
 
 
 };
 
 template< typename Object>
-inline QuadNode<Object>::QuadNode(const Tga2D::Vector2f aPos, const Tga2D::Vector2f aSize)
+inline QuadNode<Object>::QuadNode(const Tga2D::Vector2f& aPos, const Tga2D::Vector2f& aSize)
 {
 	mySize = aSize;
 	myPosition = aPos;
@@ -42,24 +44,29 @@ inline QuadNode<Object>::QuadNode(const Tga2D::Vector2f aPos, const Tga2D::Vecto
 template<typename Object>
 inline void QuadNode<Object>::Insert(const Object& anObjectToAdd)
 {
-	if (myContents.size() >= 5)
+	myContents.push_back(anObjectToAdd);
+	if (myContents.size() >= 5 && !myHasChildrenFlag)
 	{
 		SplitNode();
+		return;
 	}
 
 	if (myHasChildrenFlag)
 	{
 		InsertInChildren(anObjectToAdd);
 	}
-	else
-	{
-		myContents.push_back(anObjectToAdd);
-	}
+
 }
 
 template<typename Object>
 inline void QuadNode<Object>::Render()
 {
+	Tga2D::DebugDrawer& drawer = Tga2D::Engine::GetInstance()->GetDebugDrawer();
+	for (auto& obj : myContents)
+	{
+		drawer.DrawCircle(obj.myPosition, obj.mySize.x);
+	}
+
 	if (myHasChildrenFlag)
 	{
 		for (std::shared_ptr<QuadNode<Object>>& node : myChildNodes)
@@ -69,7 +76,7 @@ inline void QuadNode<Object>::Render()
 		return;
 	}
 
-	Tga2D::DebugDrawer& drawer = Tga2D::Engine::GetInstance()->GetDebugDrawer();
+	
 
 
 	std::array<Tga2D::Vector2f, 2> myStartPoint, myEndPoint;
@@ -88,60 +95,83 @@ inline void QuadNode<Object>::Render()
 	lineColor[1] = { 1.0f,0.25f,0.25f,1 };
 	drawer.DrawLines(myStartPoint.data(), myEndPoint.data(), lineColor.data(), 2);
 
-	for (auto& obj : myContents)
-	{
-		drawer.DrawCircle(obj.myPosition, obj.mySize.x);
-	}
+	
 
 
 }
 
 template<typename Object>
-inline void QuadNode<Object>::InsertInChildren(const Object& anObjectToAdd)
+inline void QuadNode<Object>::InsertInChildren(const Object& anObjectToAdd, std::function<void(Object& anObject)> anInsertCallack)
 {
-	for (auto& node : myChildNodes)
+	int targetNode = -1;
+	int validAmm = 0;
+	for (int n = 0; n < myChildNodes.size(); n++)
 	{
-		bool isInsideX = std::abs(anObjectToAdd.myPosition.x - node->myPosition.x) < node->mySize.x + anObjectToAdd.mySize.x;
-		bool isInsideY = std::abs(anObjectToAdd.myPosition.y - node->myPosition.y) < node->mySize.y + anObjectToAdd.mySize.y;
+		const bool isInsideX = std::abs(anObjectToAdd.myPosition.x - myChildNodes[n]->myPosition.x) < myChildNodes[n]->mySize.x + anObjectToAdd.mySize.x;
+		const bool isInsideY = std::abs(anObjectToAdd.myPosition.y - myChildNodes[n]->myPosition.y) < myChildNodes[n]->mySize.y + anObjectToAdd.mySize.y;
 
 		if (isInsideX && isInsideY)
 		{
-			node->Insert(anObjectToAdd);
+			targetNode = n;
+			validAmm++;
 		}
 	}
+
+	if (validAmm == 1)
+	{
+		myChildNodes[targetNode]->Insert(anObjectToAdd);
+		if (anInsertCallack)
+			anInsertCallack(const_cast<Object&>(anObjectToAdd));
+
+	}
+	
+
+
+
+
+
+}
+
+template<typename Object>
+inline void QuadNode<Object>::MoveContentsToChildren()
+{
+	for (size_t i = 0; i < myContents.size(); i++)
+	{
+		InsertInChildren(myContents[i], [&](Object& anElement)
+			{
+				myContents.erase(std::remove(myContents.begin(), myContents.end(), anElement), myContents.end());
+				i--;
+			});
+	}
+
+
 }
 
 template<typename Object>
 inline void QuadNode<Object>::SplitNode()
 {
 	if (myCurrentDepth >= 10) return;
-	Tga2D::Vector2f halfSize = { mySize.x / 2.f, mySize.y / 2.f };
+	const Tga2D::Vector2f halfSize = { mySize.x / 2.f, mySize.y / 2.f };
 	myCurrentDepth++;
+
+
+
 	for (int x = -1; x <= 1; x++)
 	{
 		for (int y = -1; y <= 1; y++)
 		{
 			if (x == 0 || y == 0) continue;
 
-			Tga2D::Vector2f newPos = myPosition + Tga2D::Vector2f(halfSize.x * x, halfSize.y * y);
+			const Tga2D::Vector2f newPos = myPosition + Tga2D::Vector2f(halfSize.x * x, halfSize.y * y);
 			auto newQuad = std::make_shared<QuadNode<Object>>(newPos, halfSize);
 
-			for (size_t objIndex = 0; objIndex < myContents.size(); objIndex++)
-			{
-				bool isInsideX = std::abs(myContents[objIndex].myPosition.x - newPos.x) < halfSize.x + myContents[objIndex].mySize.x;
-				bool isInsideY = std::abs(myContents[objIndex].myPosition.y - newPos.y) < halfSize.y + myContents[objIndex].mySize.y;
-
-				if (isInsideX && isInsideY)
-				{
-					newQuad->Insert(myContents[objIndex]);
-				}
-
-			}
 			newQuad->myCurrentDepth = myCurrentDepth;
 			myChildNodes.push_back(newQuad);
 
 		}
 	}
 	myHasChildrenFlag = true;
-	myContents.clear();
+
+	MoveContentsToChildren();
+
 }
