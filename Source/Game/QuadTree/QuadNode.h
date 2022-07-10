@@ -6,6 +6,7 @@
 #include <tga2d/math/Transform.h>
 #include <algorithm>
 #include <tga2d/drawers/DebugDrawer.h>
+#include "../External/Custom/Input.h"
 
 template<typename Object>
 class QuadNode
@@ -16,6 +17,9 @@ public:
 	void Render();
 
 private:
+
+
+
 	size_t myCurrentDepth;
 	bool myHasChildrenFlag;
 
@@ -29,7 +33,7 @@ private:
 	void MoveContentsToChildren();
 	void SplitNode();
 
-
+	const bool CheckNodeAgainstPosition(const Tga2D::Vector2f aPosition);
 };
 
 template< typename Object>
@@ -61,11 +65,26 @@ inline void QuadNode<Object>::Insert(const Object& anObjectToAdd)
 template<typename Object>
 inline void QuadNode<Object>::Render()
 {
+	using namespace CommonUtilities;
+	auto pixelPos = Mouse::GetMousePosition();
+
+	auto targetRez = Tga2D::Engine::GetInstance()->GetTargetSize();
+
+
+	Tga2D::Vector2f pos = Tga2D::Vector2f(static_cast<float>(pixelPos.x) / static_cast<float>(targetRez.x), static_cast<float>(pixelPos.y) / static_cast<float>(targetRez.y));
+	bool isMouseInQuadNode = CheckNodeAgainstPosition(pos);
+
+
 	Tga2D::DebugDrawer& drawer = Tga2D::Engine::GetInstance()->GetDebugDrawer();
+
+
 	for (auto& obj : myContents)
 	{
-		drawer.DrawCircle(obj.myPosition, obj.mySize.x);
+
+		drawer.DrawCircle(obj.myPosition, obj.mySize.x, isMouseInQuadNode ? myHasChildrenFlag ? Tga2D::Color(0, 0, 1, 1) : Tga2D::Color(0, 1, 0, 1) : Tga2D::Color(1, 1, 1, 1));
 	}
+
+
 
 	if (myHasChildrenFlag)
 	{
@@ -76,7 +95,7 @@ inline void QuadNode<Object>::Render()
 		return;
 	}
 
-	
+
 
 
 	std::array<Tga2D::Vector2f, 2> myStartPoint, myEndPoint;
@@ -95,7 +114,7 @@ inline void QuadNode<Object>::Render()
 	lineColor[1] = { 1.0f,0.25f,0.25f,1 };
 	drawer.DrawLines(myStartPoint.data(), myEndPoint.data(), lineColor.data(), 2);
 
-	
+
 
 
 }
@@ -124,7 +143,7 @@ inline void QuadNode<Object>::InsertInChildren(const Object& anObjectToAdd, std:
 			anInsertCallack(const_cast<Object&>(anObjectToAdd));
 
 	}
-	
+
 
 
 
@@ -174,4 +193,14 @@ inline void QuadNode<Object>::SplitNode()
 
 	MoveContentsToChildren();
 
+}
+
+template<typename Object>
+inline const bool QuadNode<Object>::CheckNodeAgainstPosition(const Tga2D::Vector2f aPosition)
+{
+	Tga2D::Vector2f min = myPosition - Tga2D::Vector2f(mySize.x, mySize.y);
+	Tga2D::Vector2f max = myPosition + Tga2D::Vector2f(mySize.x, mySize.y);
+
+
+	return aPosition.x >= min.x && aPosition.x <= max.x && aPosition.y >= min.y && aPosition.y <= max.y;
 }
